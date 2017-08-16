@@ -4,7 +4,7 @@
 // as parameters
 const execShell = require("../execShell/execShell.js");
 
-const projectGrepper = function (params, callback) {
+const getGrepResults = function (params, callback) {
     if (!params || !params.search_term || !params.project_path || !callback) {
         throw {
             value: "insufficient parameters",
@@ -14,7 +14,7 @@ const projectGrepper = function (params, callback) {
             },
         };
     }
-    execShell.execShell("./apps/projectGrepper/runGrep.sh", params, callback);
+    execShell.execShell("./apps/shellRunner/projectGrepper/runGrep.sh", params, callback);
 };
 
-exports.projectGrepper = projectGrepper;
+exports.getGrepResults = getGrepResults;

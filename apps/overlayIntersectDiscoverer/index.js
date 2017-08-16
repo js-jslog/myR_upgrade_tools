@@ -6,21 +6,26 @@
 // 4. Regex the filename out of each line and grep a project for those references
 // 5. Summarise by outputting a file which identifies each search and how many results it had
 
-const paramGatherer = require("../paramGatherer/index.js");
-const gitDiffer = require("../gitDiffer/index.js");
+const gatherParams = require("../shellRunner/index.js").gatherParams;
+const getChangedFileList = require("../shellRunner/index.js").getChangedFileList;
 const clientCodeScanner = require("../clientCodeScanner/index.js");
+var params = {};
 
-const entryPoint = function () {
-    var params = {};
-    paramGatherer.gatherParams(params, function () {
-        gitDiffer.gitDiffer({
-            first_tag: params.first_tag,
-            second_tag: params.second_tag,
-            sapphire_dir: params.sapphire_dir,
-        }, function (input) {
-            clientCodeScanner.summarise(input, params);
-        });
-    });
+const getParams = function () {
+    gatherParams(params, getSapphireChanges);
 };
 
-entryPoint();
+const getSapphireChanges = function () {
+    const git_differ_params = {
+        first_tag: params.first_tag,
+        second_tag: params.second_tag,
+        sapphire_dir: params.sapphire_dir,
+    };
+    getChangedFileList(git_differ_params, getClientUses);
+};
+    
+const getClientUses = function (input) {
+    clientCodeScanner.summarise(input, params);
+};
+
+getParams();
