@@ -1,14 +1,8 @@
 "use strict"
 
-// 1. Get folder location
-// 2. Get names of tags to diff
-// 3. Perform diff and pipe results in to array
-// 4. Regex the filename out of each line and grep a project for those references
-// 5. Summarise by outputting a file which identifies each search and how many results it had
-
 const gatherParams = require("../shellRunner/index.js").gatherParams;
 const getChangedFileList = require("../shellRunner/index.js").getChangedFileList;
-const clientCodeScanner = require("../clientCodeScanner/index.js");
+const getObjectUseReport = require("../clientCodeScanner/index.js").getObjectUseReport;
 var params = {};
 
 const getParams = function () {
@@ -25,7 +19,7 @@ const getSapphireChanges = function () {
 };
     
 const getClientUses = function (input) {
-    clientCodeScanner.summarise(input, params);
+    getObjectUseReport(input, params);
 };
 
 getParams();

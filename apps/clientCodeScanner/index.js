@@ -2,9 +2,15 @@
 
 const getGrepResults = require("../shellRunner/index.js").getGrepResults;
 const multilineSplit = require("../multilineSplit/index.js");
+var instance_params;
 
-// TODO: improve to remove undefined values in returned array
-const summarise = function (input, params) {
+const getObjectUseReport = function (input, params, callback) {
+    instance_params = params;
+    const object_list = splitAndFilterInput(input);
+    searchProjectForObjects(object_list, callback);
+};
+
+const splitAndFilterInput = function (input, callback) {
     const rgx = /([^\/]*)\.js/;
     const exclusions = [
         "load",
@@ -18,20 +24,25 @@ const summarise = function (input, params) {
         return (exclusions.indexOf(term) === -1);
     });
     console.log("Files changed: " + file_names.length);
-    file_names.forEach(function (file_name) {
+    return file_names;
+};
+
+
+const searchProjectForObjects = function (object_list) {
+    object_list.forEach(function (object) {
         const params_local = {
-            search_term: file_name,
-            project_path: params.client_dir,
+            search_term: object,
+            project_path: instance_params.client_dir,
         };
-        getGrepResults(params_local, projectGrepperCallback);
+        getGrepResults(params_local, composeReport);
     });
 };
 
-const projectGrepperCallback = function (input, params) {
+const composeReport = function (input, params) {
     if (input) {
         const arr = input.split(/\r?\n/);
         console.log(params.search_term + ": " + arr.length);
     }
 };
 
-exports.summarise = summarise;
+exports.getObjectUseReport = getObjectUseReport;
