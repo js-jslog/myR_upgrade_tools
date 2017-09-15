@@ -2,4 +2,8 @@
 A tool to identify which of the file changes between 2 sapphire diffs are relevant in a given client's overlays.
 
 # Usage
-Currently only runs checking diff between R6_19_22 and R6_22_7 against cptg repo.
+Currently you need to run the overlayIntersectDiscoverer.js file manually with:
+
+`node apps/overlayIntersectDiscoverer/index.js`
+
+I intend of course to have this work with npm run as soon as possible
