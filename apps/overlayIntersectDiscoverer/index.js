@@ -5,7 +5,7 @@ const getChangedFileList = require("../shellRunner/index.js").getChangedFileList
 const getObjectUseReport = require("../clientCodeScanner/index.js").getObjectUseReport;
 var params = {};
 
-const getParams = function () {
+const produceObjectUseReport = function () {
     gatherParams(params, getSapphireChanges);
 };
 
@@ -22,4 +22,4 @@ const getClientUses = function (input) {
     getObjectUseReport(input, params);
 };
 
-getParams();
+exports.produceObjectUseReport = produceObjectUseReport;

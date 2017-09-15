@@ -10,13 +10,8 @@ A tool to identify which of the file changes between 2 sapphire diffs are releva
 
 ## Running
 Before you run the application, make sure the folder containing the client code is checked out on the tag running in production, and make sure that you have at least one sapphire folder which has been fetched to recently.
-Currently you need to run the overlayIntersectDiscoverer.js file manually with:
 
-`node apps/overlayIntersectDiscoverer/index.js`
-
-I intend of course to have this work with npm run as soon as possible
-
-1. `node apps/overlayIntersectDiscoverer/index.js`
+1. `npm start`
 2. select the client folder you will be upgrading
 3. select the sapphire folder which has been fetched to recently
 4. select the tag from which you are upgrading

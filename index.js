@@ -1,5 +1,5 @@
 "use strict"
 
-const execShell = require("./apps/execShell/execShell.js");
+const produceObjectUseReport = require("./apps/overlayIntersectDiscoverer/index.js").produceObjectUseReport;
 
-execShell.execShell();
+produceObjectUseReport();
